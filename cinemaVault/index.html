@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CinemaVault — Browse movies, select seats, and book tickets with our interactive cinema ticket reservation system.">
+  <title>CinemaVault — Movie Ticket Booking System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <div class="header__logo">
+        <span class="header__logo-icon">🎬</span>
+        <div>
+          <h1 class="header__title">CinemaVault</h1>
+          <p class="header__subtitle">Movie Ticket Booking</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" id="main">
+
+    <!-- Step Indicators -->
+    <div class="steps" id="steps">
+      <div class="step active" id="step-1">
+        <span class="step__number">1</span>
+        Select Movie
+      </div>
+      <div class="step__connector" id="connector-1"></div>
+      <div class="step" id="step-2">
+        <span class="step__number">2</span>
+        Choose Seats
+      </div>
+      <div class="step__connector" id="connector-2"></div>
+      <div class="step" id="step-3">
+        <span class="step__number">3</span>
+        Confirm Booking
+      </div>
+    </div>
+
+    <!-- ===== STEP 1: Movie Selection ===== -->
+    <section class="movies-section" id="movies-section">
+      <div class="section-title">
+        <span class="section-title__icon">🍿</span>
+        <span>Now Showing</span>
+        <div class="section-title__line"></div>
+      </div>
+      <div class="movies-grid" id="movies-grid">
+        <!-- Movie cards rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- ===== STEP 2: Seat Selection ===== -->
+    <section class="seat-section" id="seat-section">
+      <div class="section-title">
+        <span class="section-title__icon">💺</span>
+        <span>Select Your Seats</span>
+        <div class="section-title__line"></div>
+      </div>
+      <p class="selected-movie-info" id="selected-movie-info"></p>
+
+      <div class="cinema-container" id="cinema-container">
+        <!-- Cinema Screen -->
+        <div class="cinema-screen">
+          <span class="cinema-screen__label">Screen</span>
+        </div>
+
+        <!-- Seat Grid (rendered by JavaScript) -->
+        <div class="seat-grid" id="seat-grid"></div>
+
+        <!-- Seat Legend -->
+        <div class="seat-legend" id="seat-legend">
+          <div class="seat-legend__item">
+            <div class="seat-legend__color seat-legend__color--available"></div>
+            Regular (₱250)
+          </div>
+          <div class="seat-legend__item">
+            <div class="seat-legend__color seat-legend__color--premium"></div>
+            Premium (₱400)
+          </div>
+          <div class="seat-legend__item">
+            <div class="seat-legend__color seat-legend__color--selected"></div>
+            Selected
+          </div>
+          <div class="seat-legend__item">
+            <div class="seat-legend__color seat-legend__color--booked"></div>
+            Booked
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEP 3: Booking Summary ===== -->
+    <section class="booking-section" id="booking-section">
+      <div class="section-title">
+        <span class="section-title__icon">🎟️</span>
+        <span>Booking Summary</span>
+        <div class="section-title__line"></div>
+      </div>
+
+      <div class="booking-container" id="booking-container">
+        <!-- Movie Details Card -->
+        <div class="booking-card" id="booking-movie-card">
+          <h3 class="booking-card__title">🎬 Movie Details</h3>
+          <div class="booking-movie" id="booking-movie-info">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Selected Seats Card -->
+        <div class="booking-card" id="booking-seats-card">
+          <h3 class="booking-card__title">💺 Selected Seats</h3>
+          <ul class="booking-seats" id="booking-seats-list">
+            <!-- Populated by JavaScript -->
+          </ul>
+          <div class="booking-total" id="booking-total">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Customer Info Card -->
+        <div class="booking-card" id="booking-customer-card">
+          <h3 class="booking-card__title">👤 Customer Information</h3>
+          <form class="booking-form" id="booking-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="customer-name">Full Name</label>
+              <input type="text" id="customer-name"
+                     placeholder="Enter your full name"
+                     autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-email">Email Address</label>
+              <input type="email" id="customer-email"
+                     placeholder="Enter your email address"
+                     autocomplete="email" required>
+            </div>
+          </form>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group" id="booking-actions">
+          <button class="btn btn--secondary" id="back-to-seats-btn">
+            ← Back to Seats
+          </button>
+          <button class="btn btn--gold btn--full" id="confirm-btn">
+            🎟️ Confirm Booking
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== RECEIPT MODAL ===== -->
+  <div class="modal-overlay" id="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal__header">
+        <span class="modal__success-icon">✅</span>
+        <h2 class="modal__title" id="modal-title">Booking Confirmed!</h2>
+        <p class="modal__subtitle">Your tickets have been reserved successfully.</p>
+      </div>
+      <div class="modal__body" id="receipt-content">
+        <!-- Receipt rendered by JavaScript -->
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--primary btn--full" id="new-booking-btn">
+          🎬 Book Another Movie
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- ===== SCRIPTS (ES6 Modules) ===== -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
